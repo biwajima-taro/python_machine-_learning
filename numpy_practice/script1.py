@@ -49,5 +49,6 @@ x=np.arange(9)
 x=np.arange(9).reshape((3,3))
 np.sum(x)
 np.amin(x)
+#最小要素
 np.amin(x,axis=0)
 np.amin(x,axis=1)

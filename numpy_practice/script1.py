@@ -27,8 +27,6 @@ print(Data_cancer_New.nbytes)]
 
 
 
-
-
 ###
 my_list=[2,4,12,3]
 
@@ -36,3 +34,20 @@ my_array=np.asarray(my_list)
 type(my_array)
 second_array=np.zeros(4)+3
 second_array/my_array
+
+
+##compare
+x=np.array([2,3,3])
+y=np.array([2,3,4])
+x==y
+np.array_equal(x,y)
+print(x<y)
+
+
+###
+x=np.arange(9)
+x=np.arange(9).reshape((3,3))
+np.sum(x)
+np.amin(x)
+np.amin(x,axis=0)
+np.amin(x,axis=1)

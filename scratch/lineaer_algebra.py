@@ -1,7 +1,7 @@
 """vector calculculation by List object is inefficient.
 this is only for understanding vector calculation"""
 import math
-from typing import List,Tuple
+from typing import List, Tuple, Callable
 
 Vector = List[float]
 Matrix = List[List[float]]
@@ -60,3 +60,6 @@ def get_row(A:Matrix,i:int)->Vector:
 
 def get_column(A:Matrix,j:int)->Vector:
     return [A_i[j] for A_i in A ]
+
+def make_matrix(num_rows:int,num_cols:int,ejntry_fn:Callable[[int,int],float])->Matrix:
+    return [[entry_fn(i,j) for j in range(num_cols)]for i in range(num_rows)]

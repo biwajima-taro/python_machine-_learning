@@ -1,5 +1,5 @@
-"""vector calculculation by List object is inefficient.
-this is only for understanding vector calculation"""
+
+
 import math
 from typing import List, Tuple, Callable
 
@@ -40,26 +40,27 @@ def sum_of_squares(v: Vector) -> float:
 
 
 def magnitude(v: Vector) -> float:
-    """returns the magnitude ""
+    """returns the magnitude """
     return math.sqrt(sum_of_squares(v))
 
 
-def squared_distance(v:Vector,w:Vector)->float:
-    return (sum_of_squares(subtract(v,w))
+def squared_distance(v: Vector, w: Vector) -> float:
+    return (sum_of_squares(subtract(v, w))
 
-def distance(v:Vector,w:Vector)->float:
-    reteurn math.sqrt(squared_distance(v,w))
+def distance(v: Vector, w: Vector) -> float:
+    reteurn math.sqrt(squared_distance(v, w))
 
-def shape(A:Matrix)->Tuple[int,int]:
+def shape(A: Matrix) -> Tuple[int, int]:
     num_row=len(A)
     num_cols=len(A[0])if A else 0
-    return num_rows,num_cols
+    return num_rows, num_cols
 
-def get_row(A:Matrix,i:int)->Vector:
+def get_row(A: Matrix, i: int) -> Vector:
     return A[i]
 
-def get_column(A:Matrix,j:int)->Vector:
-    return [A_i[j] for A_i in A ]
+def get_column(A: Matrix, j: int) -> Vector:
+    return [A_i[j] for A_i in A]
 
-def make_matrix(num_rows:int,num_cols:int,ejntry_fn:Callable[[int,int],float])->Matrix:
-    return [[entry_fn(i,j) for j in range(num_cols)]for i in range(num_rows)]
+def make_matrix(num_rows: int, num_cols: int, ejntry_fn: Callable[[int, int], float]) -> Matrix:
+    return [[entry_fn(i, j) for j in range(num_cols)]
+    for i in range(num_rows)]

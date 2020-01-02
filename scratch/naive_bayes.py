@@ -3,7 +3,8 @@ import re
 import math
 from collections import defaultdict
 
-
+# TODO:improtby (1)message content ,(2)accept an optional min_count threshhold and ignore words that dont appear at least that many times
+# TODO:calculate precision and recall
 def tokenize(text: str) -> Set[str]:
     """extract  word set from text.this class cat be use for japanese text."""
     text = text.lower()
@@ -68,3 +69,7 @@ class NaiveBayesClassifier:
         prob_if_spam = math.exp(log_prob_if_spam)
         prob_if_ham = math.exp(log_prob_if_ham)
         return prob_if_spam/(prob_if_spam+prob_if_ham)
+
+
+if __name__ == "__main__":
+    

@@ -1,7 +1,7 @@
-from naive_bayes import NaiveBayesClassifier, Message
 import sys
 import os
-sys.append(os.pardir)
+sys.path.append(os.pardir)
+from naive_bayes import NaiveBayesClassifier, Message
 
 
 def test_train():

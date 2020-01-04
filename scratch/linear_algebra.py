@@ -30,6 +30,7 @@ def vector_mean(vectors: List[Vector]) -> Vector:
 
 
 def dot(v: Vector, w: Vector) -> float:
+    """calculate inner dot """
     assert len(v) == len(w), "vectors must be same length"
     return sum(v_i*w_i for v_i, w_i in zip(v, w))
 

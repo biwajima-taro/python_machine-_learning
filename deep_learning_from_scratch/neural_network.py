@@ -39,7 +39,15 @@ def forward(network, x):
     return y
 
 
-def soft_max(a):
+def soft_max_(a):
     exps = np.exp(a)
     sum_ = np.sum(exps)
     return exps/sum_
+
+
+def soft_max(a):
+    # avoid overflow
+    c = np.max(a)
+    exp_numerator = np.exp(a-c)
+    exp_sum = np.sum(exp_numerator)
+    return exp_numerator/exp_sum

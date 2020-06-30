@@ -51,3 +51,6 @@ def soft_max(a):
     exp_numerator = np.exp(a-c)
     exp_sum = np.sum(exp_numerator)
     return exp_numerator/exp_sum
+
+def cross_entropy_error():
+    raise NotImplementedError

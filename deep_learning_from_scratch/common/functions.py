@@ -55,6 +55,20 @@ def soft_max(a: np.ndarray) -> np.ndarray:
 
 
 def cross_entropy_error(prediction: np.ndarray, train: np.ndarray):
+    """[summary]
+
+    Parameters
+    ----------
+    prediction : np.ndarray
+        [description]
+    train : np.ndarray
+        [description]
+
+    Returns
+    -------
+    [type]
+        [description]
+    """    
     # smaller value indicate good fit
     delata = 1e-7
     return -1*np.sum(t*np.log(delata+prediction))

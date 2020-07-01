@@ -17,8 +17,9 @@ def numerical_diff(func: Callable, x: float):
 
 
 def numerical_gradient(func: Callable, x: np.ndarray) -> np.ndarray:
-    """[summary]
-
+    """
+    https://github.com/oreilly-japan/deep-learning-from-scratch/blob/master/common/gradient.py
+    https://www.aipacommander.com/entry/2017/05/14/172220
     Parameters
     ----------
     func : Callable

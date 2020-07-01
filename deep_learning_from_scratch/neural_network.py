@@ -20,19 +20,20 @@ def identify_function(x):
 
 def init_netowrd() -> Dict:
     network = {}
-    network["W1"] = np.array([[0.1, 0.3, 0.5], [0.2m0.4, 0.6]])
-    network["b1"] =
-
+    network["W1"] = np.array([[0.1, 0.3, 0.5], [0.2, 0.4, 0.6]])
+    network["b1"] = []
+    NotImplemented
     return network
 
 
 def forward(network, x):
     W1, W2, W3network["W1"], network["W2"], network["W3"]
-    b1, b2, be = network["b1"], network["b2"], network["b3"]
+    b1, b2, b3 = network["b1"], network["b2"], network["b3"]
 
     a1 = np.dot(x, W1)
     z1 = sigmoid(a1)
-    z2 = np.(z1, W2)+b2z2 = sigmoid(a2)
+    z2 = np.dot(z1, W2)+b2
+    z2 = sigmoid(a2)
     a3 = np.dot(z2, W3)+b3
     y = identify_function(a3)
 
@@ -45,12 +46,16 @@ def soft_max_(a):
     return exps/sum_
 
 
-def soft_max(a):
+def soft_max(a: np.ndarray) -> np.ndarray:
     # avoid overflow
     c = np.max(a)
     exp_numerator = np.exp(a-c)
     exp_sum = np.sum(exp_numerator)
     return exp_numerator/exp_sum
 
-def cross_entropy_error():
-    raise NotImplementedError
+
+def cross_entropy_error(prediction: np.ndarray, train: np.ndarray):
+    # smaller value indicate good fit
+    delata = 1e-7
+    return -1*np.sum(t*np.log(delata+prediction))
+

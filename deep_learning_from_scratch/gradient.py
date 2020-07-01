@@ -46,7 +46,7 @@ def numerical_partial_diff(func: Callable,  x: np.ndarray, i: int, h: float = 1e
     f2 = func(x)
     # set back value to its original
     x[i] = tmp
-    return (f1-f2)/h
+    return (f1-f2)/(2*h)
 
 
 def gradient_decent(func: Callable, init_x: np.array, learning_rate: float = 0.01, step_num: int = 100) -> np.ndarray:
@@ -55,3 +55,9 @@ def gradient_decent(func: Callable, init_x: np.array, learning_rate: float = 0.0
         grad = numerical_gradient(func, x)
         x -= learning_rate*grad
     return x
+
+
+if __name__ == "__main__":
+    def func2(x: np.ndarray):
+        return np.sum(x**2)
+    print(numerical_gradient(func2, np.array([3.0, 4.0])))

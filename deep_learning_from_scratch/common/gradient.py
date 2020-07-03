@@ -39,6 +39,20 @@ def numerical_diff(func: Callable, x: float):
 
 
 def numerical_gradient(f: Callable, x: np.ndarray) -> np.ndarray:
+    """[summary]
+
+    Parameters
+    ----------
+    f : Callable
+        [description]
+    x : np.ndarray
+        [description]
+
+    Returns
+    -------
+    np.ndarray
+        [description]
+    """    
     h = 1e-4  # 0.0001
     grad = np.zeros_like(x)
     #used for multi dimentional arrays

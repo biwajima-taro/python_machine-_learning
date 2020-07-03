@@ -16,26 +16,37 @@ def numerical_diff(func: Callable, x: float):
     return (func(x+h)-func(x-h))/2*h
 
 
-def numerical_gradient(func: Callable, x: np.ndarray) -> np.ndarray:
-    """
-    https://github.com/oreilly-japan/deep-learning-from-scratch/blob/master/common/gradient.py
-    https://www.aipacommander.com/entry/2017/05/14/172220
-    Parameters
-    ----------
-    func : Callable
-        [description]
-    x : np.ndarray
-        [description]
+# def numerical_gradient(func: Callable, x: np.ndarray) -> np.ndarray:
+ #   """
+  #  https://github.com/oreilly-japan/deep-learning-from-scratch/blob/master/common/gradient.py
+   # https://www.aipacommander.com/entry/2017/05/14/172220
+    # Parameters
+    # ----------
+    #func : Callable
+    #   [description]
+    #x : np.ndarray
+    #    [description]
 
-    Returns
-    -------
-    np.ndarray
-        [description]
-    """
-    h = 1e-4
+  #  Returns
+   # np.ndarray
+    #   [description]
+    # """
+    #h = 1e-4
+    #grad = np.zeros_like(x)
+    # for i in range(x.size):
+    #    grad[i] = numerical_partial_diff(func, x, i, h)
+    # return grad
+
+
+def numerical_gradient(f: Callable, x: np.ndarray) -> np.ndarray:
+    h = 1e-4  # 0.0001
     grad = np.zeros_like(x)
-    for i in range(x.size):
-        grad[i] = numerical_partial_diff(func, x, i, h)
+    #used for multi dimentional arrays
+    it = np.nditer(x, flags=['multi_index'], op_flags=['readwrite'])
+    while not it.finished:
+        idx = it.multi_index
+        grad[idx] = numerical_partial_diff(idx)
+        it.iternext()
     return grad
 
 

@@ -10,3 +10,5 @@ class SGD(Optimizer):
     def update(self, params: Dict, grads: Dict) -> None:
         for key in params.keys():
             params[keys] += lr*grad[key]
+
+

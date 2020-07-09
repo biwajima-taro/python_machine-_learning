@@ -3,7 +3,10 @@ import numpy as np
 
 
 def preprocess(text: str) -> Tuple[np.ndarray, Dict, Dict]:
-    """[summary]
+    
+    """
+    
+    [summary]
 
     Args:
         text (str): [description]
@@ -11,6 +14,8 @@ def preprocess(text: str) -> Tuple[np.ndarray, Dict, Dict]:
     Returns:
         Tuple[np.ndarray,Dict,Dict]: [description]
     """
+    a=""""
+
     text = text.lower()
     text = text.replace(".", " .")
     words = text.split(" ")
@@ -25,3 +30,6 @@ def preprocess(text: str) -> Tuple[np.ndarray, Dict, Dict]:
     corpus = np.array([word_to_id[word] for word in words])
 
     return corpus, word_to_id, id_to_word
+
+
+def create_co_matrix(corpus:ndarrapy)

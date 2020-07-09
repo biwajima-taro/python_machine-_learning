@@ -13,19 +13,18 @@ def preprocess(text: str) -> Tuple[np.ndarray, Dict, Dict]:
     Returns:
         Tuple[np.ndarray,Dict,Dict]: [description]
     """
-    """"
 
     text = text.lower()
     text = text.replace(".", " .")
     words = text.split(" ")
     word_to_id = {}
     id_to_word = {}
-    count = 0
     for word in words:
         if word_to_id.get(word) is None:
-            word_to_id[word] = count
-            id_to_word[count] = word
-            count += 1
+            new_id=len(word_to_id)
+            word_to_id[word] = new_id
+            id_to_word[new_id] = word
+            #count += 1
     corpus = np.array([word_to_id[word] for word in words])
 
     return corpus, word_to_id, id_to_word

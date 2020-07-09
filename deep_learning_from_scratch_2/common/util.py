@@ -46,8 +46,59 @@ def create_co_matrix(corpus:ndarrapy,vacab_size:int,window_size=1)->np.ndarray:
     return co_matrix
 
 
-def cos_similarity(x:np.ndarray,np.ndarray):
-    nx=x/np.sqrt(np.sum(x))
-    ny=y/np.sqrt(np.sum(y))
+def cos_similarity(x:np.ndarray,np.ndarray,eps=1e-8):
+    """[summary]
+
+    Args:
+        x (np.ndarray): [description]
+        np ([type]): [description]
+        eps ([type], optional): to aovid zero division-error. Defaults to 1e-8.
+
+    Returns:
+        [type]: [description]
+    """    
+    nx=x/np.sqrt(np.sum(x)+eps)
+    ny=y/np.sqrt(np.sum(y)+eps)
     return np.dot(nx,ny)
     
+def most_similar(qeury:str,word_to_id:Dict[str,int],id_to_word:Dict[int,str],word_matrix:np.ndarray,top:int=5):
+    """[summary]
+
+    Args:
+        qeury (str): [description]
+        word_to_id (Dict[str,int]): [description]
+        id_to_word (Dict[int,str]): [description]
+        word_matrix (np.ndarray): [description]
+        top (int, optional): [description]. Defaults to 5.
+    """
+    def similarity(query_vec:np.ndarray)->np.ndarray:
+        """[summary]
+
+        Args:
+            query_vec (np.ndarray): [description]
+
+        Returns:
+            np.ndarray: [description]
+        """        
+        vocab_size=len(id_to_word)
+        similarity=np.zeros(vocab_size)
+        for i in range(vocab_size):
+            similarity[i]=cos_similarity(query_vec,word_matrix[i])
+        return similarity
+    #python3.8
+    if not (query_id:=word_to_id.get(query)):
+        print("not found")
+        return None    
+    query_vec=word_matrix[query_id]
+    similarity=similarity(query_vec)
+    #jsut print
+    count=0
+    for i in (-1*similarity).argsort():
+        current_word=id_to_word(i)
+        if current_word==query:
+            coutinue
+        print(current_word)
+        count+=1
+
+        if count>=top:
+            return 

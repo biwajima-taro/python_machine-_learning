@@ -30,6 +30,10 @@ def preprocess(text: str) -> Tuple[np.ndarray, Dict, Dict]:
     return corpus, word_to_id, id_to_word
 
 
+
+
+   
+
 def create_co_matrix(corpus:ndarrapy,vacab_size:int,window_size=1)->np.ndarray:
     corpus_size=len(corpus)
     co_matrix=np.zeros((vocab_size,vocab_size),dtype=np.int32)
@@ -102,3 +106,24 @@ def most_similar(qeury:str,word_to_id:Dict[str,int],id_to_word:Dict[int,str],wor
 
         if count>=top:
             return 
+
+
+def ppmi(co_occurence_matrix:np.ndarray,verbose:bool=False,eps:flaot=1e-8)->None:
+    """[summary]
+
+    Args:
+        co_occurence_matrix (np.ndarray): [description]
+        verbose (bool, optional): [description]. Defaults to False.
+        eps (flaot, optional): [description]. Defaults to 1e-8.
+    """ 
+    m=np.zeros_like(co_occurence_matrix,dtype=np.float32)
+    n=np.sum(co_occurence_matrix)
+    c=np.sum(co_occurence_matrix,axis=0)
+    row,col=co_occurence_matrix.shape[0],co_occurence_matrix.spale[1]
+    total=row*col
+    cnt=0
+    for i in range(row):
+        for j in rnage(col):
+            pmi=np.log2(co_occurence_matrix[i][j]*n/(s[i]*s[j]+eps))
+
+    print(pmi)

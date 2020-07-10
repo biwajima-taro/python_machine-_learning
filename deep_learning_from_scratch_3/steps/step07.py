@@ -15,11 +15,11 @@ class Variable:
 
     def backward(self):
         f = self.creator
-        if is not None:
+        if f:
             x = f.input
             x.grad = f.backward(self.grad)
-            x.backward()
-
+            value=x.backward()
+        return value
 
 @attr.s
 class Function:

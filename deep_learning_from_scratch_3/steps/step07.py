@@ -1,3 +1,4 @@
+from __future__ import annotations
 import attr
 from typing import List
 import numpy as np
@@ -8,7 +9,7 @@ class Variable:
     data: np.ndarray = attr.ib()
     grad: np.ndarray = attr.ib()
     # how to write Function as a type hint?
-    creator = attr.ib(default=None)
+    creator:Function = attr.ib(default=None)
 
     def set_creator(self, func) -> None:
         self.creator = func
@@ -39,3 +40,5 @@ class Function:
         ouput.set_creator(self)
         self.output = output
         return Variable(y)
+
+print("hogehoge")

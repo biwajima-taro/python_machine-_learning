@@ -2,6 +2,8 @@ from typing import Callable, TypeVar, List, Iterator
 from scratch.lineaer_algebra import Vector, add, scalar_multiply
 T = TypeVar("T")
 
+def 
+
 
 def difference_auotient(f: Callable[float, float],
                         x: float, h: float) -> float:

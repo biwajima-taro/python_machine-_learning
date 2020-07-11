@@ -42,12 +42,12 @@ def AND(x1: int, x2: int, weight: List = [0.5, 0.5],
     return 0
 
 
-def NAND():
-    NotImplemented
+def NAND(x1, x2)->int:
+    return NotImplemented
 
 
-def OR():
-    NotImplemented
+def OR(x1, x2)->int:
+    return NotImplemented
 
 
 def XOR(x1: int, x2: int) -> int:

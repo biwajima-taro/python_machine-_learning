@@ -14,13 +14,13 @@ class Variable:
         self.creator = func
 
     def backward(self):
-        funcs:List[Function]=[self.creator]
-        if funcs:
-            current_f=funcs.pop()
-            x,y = f.input,f.output
+        funcs: List[Function] = [self.creator]
+        while funcs:
+            f = funcs.pop()
+            x, y = f.input, f.output
             x.grad = f.backward(y.grad)
             if x.creator:
-                funcs.append(x.creator)            
+                funcs.append(x.creator)
         return x.grad
 
 
@@ -42,4 +42,3 @@ class Function:
         output.set_creator(self)
         self.output = output
         return output
-

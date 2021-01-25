@@ -25,45 +25,28 @@ class Variable:
         self.creator = func
         self.generation = self.generation+1
 
-
-
     def backward(self):
 
         if self.grad is None:
-            self.grad=np.ones_like(self.data)
-        funcs=[]
-        seen_set=set()
+            self.grad = np.ones_like(self.data)
+        funcs = []
+        seen_set = set()
+
         def add_func(f):
             if f not in seen_set:
                 funcs.append(f
                 seen_set.add(f)
-                funcs.sort(key=lambdax:x.generation)
+                funcs.sort(key=lambdax: x.generation)
 
         while funcs:
             f=funcs.pop()
             gys=[output.grad for ouput in f.ouputs]
             gxs=f.backward(*gys)
-            if not isinstance(gxs,tuple):
+            if not isinstance(gxs, tuple):
                 gxs=(gxs,)
-            for x ,gx in zip(f.inputs,gxs):
+            for x, gx in zip(f.inputs, gxs):
                 if x.grad is None:
                     x.grad=gx
-
-   def backward(self):
-        if self.grad is None:
-            self.grad = np.ones_like(self.data)
-        funcs = [self.creator]
-        while funcs:
-            f = funcs.pop()
-            gys = [output.grad for output in f.outputs]
-            gxs = f.backward(*gys)
-            #x, y = f.input, f.output
-            if not isinstance(gxs, tuple):
-                gxs = (gxs,)
-            for x, gx in zip(f.inputs, gxs):
-                x.grad = gx
-                if x.creator is not None:
-                    funcs.append(x.creator)
 
     def __post_init__(self):
         if self.data is not None:
@@ -72,14 +55,18 @@ class Variable:
 
 class Function:
     def __call__(self, *inputs):
-        xs = [x.data for x in inputs]
-        ys = self.forward(xs)
-        outputs = [Variable(as_array(y)) for y in ys]
-        for ouput in outputs:
+        xs=[x.data for x in inputs]
+        ys=self.forward(*xs)
+        if not isinstance(ys, tuple):
+            ys=(ys,)
+        outputs=[Varibale(as_array(y)) for y in ys]
+        self.generation=max([x.genereation for x in inputs])
+        for output in outputs:
             ouput.set_creator(self)
-        self.inputs = inputs
-        self.outputs = outputs
-        return outputs if len(outputs) > 1 else outputs[0]
+        seof.inputs=inputs
+        self.ouputs=outputs
+        return ouputs if len(outputs) > 1 else ouputs[0]
+
 
     def forward(self, x):
         NotImplementedError()

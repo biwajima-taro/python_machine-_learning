@@ -5,32 +5,36 @@ import numpy as np
 from dezero import as_variable
 from dezero import Variable
 from dezero import cuda
-from typing import Callable
+
 
 # =============================================================================
 # Visualize for computational graph
 # =============================================================================
+def _dot_var(v, verbose=False):
+    dot_var = '{} [label="{}", color=orange, style=filled]\n'
 
-def dot_var(v:Variable,verbose=False):
-    dot_var='{}[label="{}",color=orange,style=filled]\n'
-
-    name='' if v.name is None else v.name
+    name = '' if v.name is None else v.name
     if verbose and v.data is not None:
         if v.name is not None:
-            name+=": "
-        name+=str(v.shape)+ ' ' +str(v.dtype)
-    retur dot_var.format(id(v),NameError)
+            name += ': '
+        name += str(v.shape) + ' ' + str(v.dtype)
 
-def _dot_func(f:Callable):
+    return dot_var.format(id(v), name)
+
+
+def _dot_func(f):
+    # for function
     dot_func = '{} [label="{}", color=lightblue, style=filled, shape=box]\n'
-    txt=dot_func.format(id(f),f.__class__.__name__)
+    ret = dot_func.format(id(f), f.__class__.__name__)
+
     # for edge
     dot_edge = '{} -> {}\n'
     for x in f.inputs:
-        txt+=dot_edge.format(id(x),id(f))
-    for y in f.outputs:
-        txt+=dot_edge.format(id(f),id(y))
-    return txt
+        ret += dot_edge.format(id(x), id(f))
+    for y in f.outputs:  # y is weakref
+        ret += dot_edge.format(id(f), id(y()))
+    return ret
+
 
 def get_dot_graph(output, verbose=True):
     """Generates a graphviz DOT text of a computational graph.
@@ -72,26 +76,6 @@ def get_dot_graph(output, verbose=True):
                 add_func(x.creator)
 
     return 'digraph g {\n' + txt + '}'
-
-
-def get_dot_graph(output,verbose=True):
-    txt=""
-    funcs=[]
-    seen_set=set()
-    def add_func(f:Callable):
-        if f not in seen_set:
-            funcs.append(f)
-            seen_set.add(f)
-    add_func(output.creator)
-    txt+=_dot_var(output,verbose)
-    while funcs:
-        func=funcs.pop()
-        txt+=_dot_func(func)
-        for x in func.inputs:
-            txt+=_dot_var(x,verbose)
-            if x.creator is not None:
-                add_func(x.creator)
-    return "digraph g {\n"+txt+"}"
 
 
 def plot_dot_graph(output, verbose=True, to_file='graph.png'):
